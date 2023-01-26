@@ -14,6 +14,10 @@ type (
 		responses.Basic
 		Positions []*models.Position `json:"data"`
 	}
+	GetPositionsHistory struct {
+		responses.Basic
+		PositionsHistory []*models.PositionHistory `json:"data"`
+	}
 	GetAccountAndPositionRisk struct {
 		responses.Basic
 		PositionAndAccountRisks []*models.PositionAndAccountRisk `json:"data"`

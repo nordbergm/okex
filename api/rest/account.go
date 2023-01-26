@@ -6,6 +6,7 @@ import (
 	requests "github.com/amir-the-h/okex/requests/rest/account"
 	responses "github.com/amir-the-h/okex/responses/account"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -66,12 +67,54 @@ func (c *Account) GetPositions(req requests.GetPositions) (response responses.Ge
 	return
 }
 
+// GetPositionsHistory
+// Retrieve the updated position data for the last 3 months. Return in reverse chronological order using utime.
+//
+// https://www.okx.com/docs-v5/en/#rest-api-account-get-positions-history
+func (c *Account) GetPositionsHistory(req requests.GetPositionsHistory) (response responses.GetPositionsHistory, err error) {
+	p := "/api/v5/account/positions-history"
+	m := okex.S2M(req)
+	if req.InstType != "" {
+		m["instType"] = string(req.InstType)
+	}
+	if req.InstID != "" {
+		m["instId"] = req.InstID
+	}
+	if req.MgnMode != "" {
+		m["mgnMode"] = string(req.MgnMode)
+	}
+	if req.Type != "" {
+		m["type"] = req.Type
+	}
+	if req.PosID != "" {
+		m["posId"] = req.PosID
+	}
+	if req.After > 0 {
+		m["after"] = strconv.Itoa(int(req.After))
+	}
+	if req.Before > 0 {
+		m["before"] = strconv.Itoa(int(req.Before))
+	}
+	if req.Limit > 0 {
+		m["limit"] = strconv.Itoa(int(req.Limit))
+	}
+	res, err := c.client.Do(http.MethodGet, p, true, m)
+	if err != nil {
+		return
+	}
+	defer res.Body.Close()
+	d := json.NewDecoder(res.Body)
+	err = d.Decode(&response)
+
+	return
+}
+
 // GetAccountAndPositionRisk
 // Get account and position risk
 //
 // https://www.okex.com/docs-v5/en/#rest-api-account-get-account-and-position-risk
 func (c *Account) GetAccountAndPositionRisk(req requests.GetAccountAndPositionRisk) (response responses.GetAccountAndPositionRisk, err error) {
-	p := "/api/v5/account/positions"
+	p := "/api/v5/account/account-position-risk"
 	m := okex.S2M(req)
 	res, err := c.client.Do(http.MethodGet, p, true, m)
 	if err != nil {

@@ -80,6 +80,26 @@ type (
 		CTime       okex.JSONTime       `json:"cTime"`
 		UTime       okex.JSONTime       `json:"uTime"`
 	}
+	PositionHistory struct {
+		Ccy           string              `json:"ccy"`
+		CloseAvgPx    okex.JSONFloat64    `json:"closeAvgPx"`
+		CloseTotalPos okex.JSONFloat64    `json:"closeTotalPos"`
+		InstID        string              `json:"instId"`
+		InstType      okex.InstrumentType `json:"instType"`
+		Lever         okex.JSONFloat64    `json:"lever"`
+		MgnMode       okex.MarginMode     `json:"mgnMode"`
+		OpenAvgPx     okex.JSONFloat64    `json:"openAvgPx"`
+		OpenMaxPos    okex.JSONFloat64    `json:"openMaxPos"`
+		Pnl           okex.JSONFloat64    `json:"pnl"`
+		PnlRatio      okex.JSONFloat64    `json:"pnlRatio"`
+		PosID         string              `json:"posId"`
+		Direction     okex.PositionSide   `json:"direction"`
+		TriggerPx     okex.JSONFloat64    `json:"triggerPx"`
+		Type          string              `json:"type"`
+		Uly           string              `json:"uly"`
+		CTime         okex.JSONTime       `json:"cTime"`
+		UTime         okex.JSONTime       `json:"uTime"`
+	}
 	BalanceAndPosition struct {
 		EventType okex.EventType    `json:"eventType"`
 		PTime     okex.JSONTime     `json:"pTime"`

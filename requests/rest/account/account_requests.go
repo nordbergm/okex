@@ -11,6 +11,16 @@ type (
 		PosID    []string            `json:"posId,omitempty"`
 		InstType okex.InstrumentType `json:"instType,omitempty"`
 	}
+	GetPositionsHistory struct {
+		InstType okex.InstrumentType `json:"instType,omitempty"`
+		InstID   string              `json:"instId,omitempty"`
+		MgnMode  okex.MarginMode     `json:"mgnMode"`
+		Type     string              `json:"type,omitempty"`
+		PosID    string              `json:"posId,omitempty"`
+		After    int64               `json:"after,omitempty,string"`
+		Before   int64               `json:"before,omitempty,string"`
+		Limit    int64               `json:"limit,omitempty,string"`
+	}
 	GetAccountAndPositionRisk struct {
 		InstType okex.InstrumentType `json:"instType,omitempty"`
 	}
